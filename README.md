@@ -16,6 +16,7 @@ Currently includes equivalents of the following GNU tools:
 - `dir`
 - `vdir`
 - `hostid`
+- `nproc`
 - `b2sum`
 - `md5sum`
 - `sha1sum`

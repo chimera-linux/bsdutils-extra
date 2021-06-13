@@ -8,6 +8,7 @@ project('bsdutils-extra', ['c'],
 )
 
 libcrypto = dependency('libcrypto', required: true)
+pthread = dependency('threads')
 
 # Symlink installation script
 install_link = meson.current_source_dir() / 'utils/install-link.sh'
