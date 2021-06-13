@@ -121,9 +121,6 @@ static void usage_bsd(FILE *stream) {
 static int digest_compare(
     unsigned char *dstr, unsigned int mdlen, const char *cmp
 ) {
-    if (strlen(cmp) != (2 * mdlen)) {
-        return 0;
-    }
     for (unsigned int i = 0; i < mdlen; ++i) {
         if (((HEX_DIGIT(cmp[0]) << 4) | HEX_DIGIT(cmp[1])) != dstr[i]) {
             return 0;
@@ -301,13 +298,31 @@ static int handle_file(
         }
     }
 
-    if ((hstyle == STYLE_BSD) && cmp && !digest_compare(digest, mdlen, cmp)) {
-        if (!opt_quiet && (stream != stdin)) {
-            printf(" [ Failed ]\n");
-        } else {
-            printf("\n");
+    if ((hstyle == STYLE_BSD) && cmp) {
+        int isdigest = 1;
+        /* validate digest */
+        if ((strlen(cmp) * 4) != digestsize) {
+            isdigest = 0;
         }
-        return 2;
+        if (isdigest) {
+            for (unsigned int i = 0; i < (digestsize / 4); ++i) {
+                if (!isxdigit(cmp[i])) {
+                    isdigest = 0;
+                    break;
+                }
+            }
+        }
+        if (isdigest) {
+            isdigest = digest_compare(digest, mdlen, cmp);
+        }
+        if (!isdigest) {
+            if (!opt_quiet && (stream != stdin)) {
+                printf(" [ Failed ]\n");
+            } else {
+                printf("\n");
+            }
+            return 2;
+        }
     }
 
     printf("\n");
