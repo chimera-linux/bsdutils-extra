@@ -12,4 +12,12 @@ libcrypto = dependency('libcrypto', required: true)
 # Symlink installation script
 install_link = meson.current_source_dir() / 'utils/install-link.sh'
 
+conf_data = configuration_data()
+
+conf_data.set('PROJECT_VERSION', '"' + meson.project_version() + '"')
+
+configure_file(output: 'config.h', configuration: conf_data)
+
+inc_main = include_directories('.')
+
 subdir('src')

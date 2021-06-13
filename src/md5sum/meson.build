@@ -1,5 +1,6 @@
 md5sum = executable('md5sum', ['md5sum.c'],
     dependencies: [libcrypto],
+    include_directories: inc_main,
     install: true
 )
 

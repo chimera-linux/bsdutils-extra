@@ -27,6 +27,8 @@
 
 #define _GNU_SOURCE
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -456,9 +458,9 @@ int main(int argc, char **argv) {
         return 0;
     } else if (opt_version) {
         printf(
-"%s (bsdutils-extra) 0.1\n"
+"%s (bsdutils-extra) " PROJECT_VERSION "\n"
 "Copyright (C) 2021 Daniel Kolesa\n"
-"License BSD-2-Clause\n",
+"SPDX-License-Identifier: BSD-2-Clause\n",
             __progname
         );
         return 0;
