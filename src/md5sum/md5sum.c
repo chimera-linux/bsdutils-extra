@@ -390,6 +390,8 @@ int main(int argc, char **argv) {
         hstyle = STYLE_GNU;
     }
 
+    opterr = 0;
+
     for (;;) {
         int c;
         int opt_idx = 0;
