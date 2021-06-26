@@ -1,3 +1,4 @@
+subdir('basenc')
 subdir('dir')
 subdir('hostid')
 subdir('md5sum')
