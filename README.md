@@ -13,6 +13,7 @@ all of the features of their counterparts.
 
 Currently includes equivalents of the following GNU tools:
 
+- `arch`
 - `basenc`
 - `base32`
 - `base64`
