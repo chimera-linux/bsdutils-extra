@@ -134,6 +134,9 @@ static int digest_compare(
 
 static char *get_basename(char *path) {
     char *tslash = strrchr(path, '/');
+    if (!tslash) {
+        return path;
+    }
     if (strlen(tslash + 1) == 0) {
         *tslash = '\0';
         return get_basename(path);
@@ -541,7 +544,10 @@ int main(int argc, char **argv) {
     } else {
         while (optind < argc) {
             const char *fname = argv[optind++];
-            FILE *f = fopen(fname, "r");
+            FILE *f = stdin;
+            if (strcmp(fname, "-")) {
+                f = fopen(fname, "r");
+            }
             if (!f) {
                 free(rbuf);
                 EVP_MD_CTX_free(ctx);
