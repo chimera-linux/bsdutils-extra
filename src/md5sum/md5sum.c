@@ -47,7 +47,10 @@ enum mode {
     MODE_SHA256,
     MODE_SHA384,
     MODE_SHA512,
+#if 0
+    /* legacy provider in openssl 3.x */
     MODE_RMD160
+#endif
 };
 
 enum style {
@@ -372,11 +375,13 @@ int main(int argc, char **argv) {
         hmode = MODE_SHA512;
         scmp = __progname + 6;
         digestsize = 512;
+#if 0
     } else if (!strcmp(__progname, "rmd160")) {
         bname = "RMD160";
         hmode = MODE_RMD160;
         hstyle = STYLE_BSD;
         digestsize = 160;
+#endif
     }
 
     if ((hstyle == STYLE_UNKNOWN) && scmp) {
@@ -494,9 +499,11 @@ int main(int argc, char **argv) {
         case MODE_SHA512:
             md = EVP_sha512();
             break;
+#if 0
         case MODE_RMD160:
             md = EVP_ripemd160();
             break;
+#endif
         default:
             break;
     }
